@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title><%- title%> | Notebook</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Custom fonts for this template -->
+		<link href="/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+		<!-- Custom fonts for this template -->
+		<link href="/assets/plugins/themify/css/themify.css" rel="stylesheet" type="text/css">
+
+		<!-- Angular Tooltip Css -->
+		<link href="/assets/plugins/angular-tooltip/angular-tooltips.css" rel="stylesheet">
+		
+		<!-- Morris Charts CSS -->
+		<link href="/assets/plugins/morris.js/morris.css" rel="stylesheet">
+
+		<!-- Page level plugin CSS -->
+		<link href="/assets/dist/css/animate.css" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="/assets/dist/css/glovia.css" rel="stylesheet">
+		<link href="/assets/dist/css/glovia-responsive.css" rel="stylesheet">
+
+		<!-- Custom styles for Color -->
+		<link rel="stylesheet" href="/assets/dist/css/skins/default.css">
+</head>
+	<body class="fixed-nav sticky-footer red-skin" id="page-top">
+	
+		<!-- ===============================
+			Navigation Start
+		====================================-->
+		<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+			
+			<!-- Start Header -->
+			<header class="header-logo">
+				<a class="nav-link text-center mr-lg-3 hidden-xs" id="sidenavToggler"><i class="ti-align-left"></i></a>
+				<a class="navbar-brand" href="/">Notebook</a>
+			</header>
+			<!-- End Header -->
+			
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="ti-align-left"></span>
+			</button>
+			
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				 
+				<!-- =============== Start Side Menu ============== -->
+				<div class="navbar-side">
+				  <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+				  
+				    <!-- Start Dashboard-->
+				    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
+					  <a class="nav-link" href="/">
+						<i class="ti ti-dashboard"></i>
+						<span class="nav-link-text">Dashboard</span>
+						<span class="pull-right-container">
+						  <i class="ti ti-accordion-right pull-right"></i>
+						</span>
+					  </a>
+					</li>
+					<% if(user.isAdmin == '1'){%>
+						<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+						  <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Components" data-parent="#exampleAccordion">
+							<i class="ti ti-world"></i>
+							<span class="nav-link-text">Department</span>
+						  </a>
+						  <ul class="sidenav-second-level collapse" id="Components">
+						  
+							<li>
+							  <a href="/department/add">Add Department</a>
+							</li>
+							
+							<li>
+							  <a href="/department/view">View Departments</a>
+							</li>
+							
+						  </ul>
+						</li>
+						<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+						  <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Users" data-parent="#exampleAccordion">
+							<i class="ti ti-user"></i>
+							<span class="nav-link-text">Users</span>
+						  </a>
+						  <ul class="sidenav-second-level collapse" id="Users">
+						  
+							<li>
+							  <a href="/users/assign_roles">Manage Users</a>
+							</li>
+							
+							
+							
+						  </ul>
+						</li>
+					<%}%>
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Solution">
+					  <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#solution" data-parent="#exampleAccordion">
+						<i class="ti ti-briefcase"></i>
+						<span class="nav-link-text">Solution</span>
+					  </a>
+					  <ul class="sidenav-second-level collapse" id="solution">
+					  
+						<li>
+						  <a href="/solution/add">Add Solution</a>
+						</li>
+						
+						<li>
+						  <a href="/solution/view">View Solutions</a>
+						</li>
+						
+					  </ul>
+					</li>
+
+					<!-- End Dashboard -->
+					<!-- End Help & Support -->
+				  </ul>
+			  </div>
+			 <!-- =============== End Side Menu ============== -->
+			  
+			  
+			  <!-- =============== Header Rightside Menu ============== -->
+			  <ul class="navbar-nav ml-auto">
+			  
+				
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle mr-lg-0 user-img a-topbar__nav a-nav" id="userDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<img src="/assets/img/images.png" alt="user-img" width="36" class="img-circle">
+						<%- user.name%>
+					</a>
+				  
+					<ul class="dropdown-menu dropdown-user animated flipInX" aria-labelledby="userDropdown">
+						<li class="dropdown-header green-bg">
+							<div class="header-user-pic">
+								<img src="/assets/img/images.png" alt="user-img" width="36" class="img-circle">
+							</div>
+							<div class="header-user-det">
+								<span class="a-dropdown__header-title"><%- user.name %></span>
+								<span class="a-dropdown__header-subtitle">
+									<% if(user.isAdmin == '0'){ %>
+										User
+									<% }else{ %>
+										Administrator
+									<% } %>
+								</span>
+							</div>
+						</li>
+						<li><a class="dropdown-item" href="/edit_profile"><i class="ti-user"></i> My Profile</a></li>
+						<li>
+							<% if(user.isAdmin == '1'){ %>
+								<a class="dropdown-item" href="/register"><i class="ti-user"></i> Add User</a>
+							<% } %>	
+						</li>
+						<li><a class="dropdown-item" href="/logout"><i class="fa fa-power-off"></i> Logout</a></li>
+					</ul>
+				</li>
+			  </ul>
+			  <!-- =============== End Header Rightside Menu ============== -->
+			</div>
+			
+		</nav>
+		<!-- =====================================================
+		                    End Navigations
+		======================================================= -->
+	  
+		<div class="content-wrapper">
+			<div class="container-fluid">
+				<%- content %>
+			</div>
+		</div>
+		<footer class="sticky-footer">
+		  <div class="container">
+			<div class="text-center">
+			  <small class="font-15">Copyright © Pentecost Hospital Made With <i class="fa fa-heart cl-danger"></i> In Accra</small>
+			</div>
+		  </div>
+		</footer>	
+			<!-- Scroll to Top Button-->  
+			<a class="scroll-to-top rounded cl-white theme-bg" href="#page-top">
+			  <i class="ti-angle-double-up"></i>
+			</a>
+
+			<!-- Bootstrap core JavaScript-->
+			<script src="/assets/plugins/jquery/jquery.min.js"></script>
+			<script src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+			<script type="text/javascript">
+							//greeting
+				let date = new Date().getHours();
+				let message
+				if(date < 12){
+					message = 'Good morning'
+				}else if(date >= 12 && date < 17){
+					message = 'Good Afternoon'
+				}else{
+					message = 'Good Evening'
+				}
+				$('#greeting').append(message)
+
+			</script>
+			<!-- Core plugin JavaScript-->
+			<script src="/assets/plugins/jquery-easing/jquery.easing.min.js"></script>
+			
+			 <!-- Slick Slider Js -->
+			<script src="/assets/plugins/slick-slider/slick.js"></script>
+			
+			<!-- Slim Scroll -->
+			<script src="/assets/plugins/slim-scroll/jquery.slimscroll.min.js"></script>
+			
+			<!-- Angular Tooltip -->
+			<script src="/assets/plugins/angular-tooltip/angular.js"></script>
+			<script src="/assets/plugins/angular-tooltip/angular-tooltips.js"></script>
+			<script src="/assets/plugins/angular-tooltip/index.js"></script>
+			
+			<!-- Morris.js charts -->
+		    <script src="/assets/plugins/raphael/raphael.min.js"></script>
+		    <script src="/assets/plugins/morris.js/morris.min.js"></script>
+			
+			<!-- Custom Chart JavaScript -->
+		    <script src="/assets/dist/js/custom/dashboard/dashboard.js"></script>
+			
+			<!-- Custom scripts for all pages -->
+			<script src="/assets/dist/js/glovia.js"></script>
+			<script src="/assets/dist/js/jQuery.style.switcher.js"></script>
+			<script src="/javascript/dashboard.js"></script>
+			<script src="/javascript/profile.js"></script>
+			<script>
+				function openRightMenu() {
+					document.getElementById("rightMenu").style.display = "block";
+				}
+				function closeRightMenu() {
+					document.getElementById("rightMenu").style.display = "none";
+				}
+			</script>
+
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$('#styleOptions').styleSwitcher();
+				});
+			</script>
+			
+			<script>
+			  $('.dropdown-toggle').dropdown()
+			</script>
+			
+	  </div>
+	  <!-- Wrapper -->
+	</body>
+
+<!-- Mirrored from codeminifier.com/new-glovia/glovia/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 09 Jan 2019 17:39:33 GMT -->
+</html>

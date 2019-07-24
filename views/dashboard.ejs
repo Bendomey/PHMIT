@@ -1,0 +1,120 @@
+<% extend('app')%>
+	<!-- Title & Breadcrumbs-->
+	<div class="row page-titles">
+		<div class="col-md-12 align-self-center">
+			<h4 class="theme-cl"><span id="greeting"></span>, <%- user.name%></h4>
+		</div>
+	</div>
+	<!-- Title & Breadcrumbs-->
+
+	<%if(user.isAdmin == '1'){%>
+		<div class="row">
+
+			<div class="col-md-4 col-sm-12">
+				<div class="widget advance-widget">
+					<div class="widget-caption info">
+						<div class="row">
+							<div class="col-4 padd-r-0">
+								<i class="icon ti-user"></i>
+							</div>
+							<div class="col-8">
+								<div class="widget-detail">
+									<h4 class="mb-1"><%- users%></h4>
+									<span>Users</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-sm-12">
+				<div class="widget advance-widget">
+					<div class="widget-caption warning">
+						<div class="row">
+							<div class="col-4 padd-r-0">
+								<i class="icon icon ti-medall"></i>
+							</div>
+							<div class="col-8">
+								<div class="widget-detail">
+									<h4 class="mb-1"><%- department%></h4>
+									<span>Departments</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		
+			
+			<div class="col-md-4 col-sm-12">
+				<div class="widget advance-widget">
+					<div class="widget-caption success">
+						<div class="row">
+							<div class="col-4 padd-r-0">
+								<i class="icon ti-briefcase"></i>
+							</div>
+							<div class="col-8">
+								<div class="widget-detail">
+									<h3><%- solution%></h3>
+									<span>Solutions</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		
+			
+		</div>
+	<%}else{%>
+	
+		<div class="row">
+
+			<div class="col-md-6 col-sm-12">
+				<div class="widget advance-widget">
+					<div class="widget-caption warning">
+						<div class="row">
+							<div class="col-4 padd-r-0">
+								<i class="icon icon ti-medall"></i>
+							</div>
+							<div class="col-8">
+								<div class="widget-detail">
+									<h4 class="mb-1"><%- department%></h4>
+									<span>Departments</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		
+			
+			<div class="col-md-6 col-sm-12">
+				<div class="widget advance-widget">
+					<div class="widget-caption success">
+						<div class="row">
+							<div class="col-4 padd-r-0">
+								<i class="icon ti-briefcase"></i>
+							</div>
+							<div class="col-8">
+								<div class="widget-detail">
+									<h3><%- solution%></h3>
+									<span>Solutions</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		
+			
+		</div>
+	<%}%>
+
+
+			

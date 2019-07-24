@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Register - Notebook</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom fonts for this template -->
+    <link href="assets/plugins/themify/css/themify.css" rel="stylesheet" type="text/css">
+
+    <!-- Angular Tooltip Css -->
+    <link href="assets/plugins/angular-tooltip/angular-tooltips.css" rel="stylesheet">
+
+    <!-- Page level plugin CSS -->
+    <link href="assets/dist/css/animate.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="assets/dist/css/glovia.css" rel="stylesheet">
+    <link href="assets/dist/css/glovia-responsive.css" rel="stylesheet">
+    
+    <!-- Custom styles for Color -->
+    <link id="jssDefault" rel="stylesheet" href="assets/dist/css/skins/default.css">
+  </head>
+
+  <body class="red-skin">
+  
+    <div class="container-fluid">
+      <div class="row">
+        <div class="hidden-xs hidden-sm col-lg-6 col-md-6 theme-bg">
+          <div class="clearfix">
+            <div class="logo-title-container text-center">
+              <h3 class="cl-white text-upper">Welcome</h3>
+               <h1 class="text-white">IT DEPARTMENT</h1>
+               
+            </div> <!-- .logo-title-container -->
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 login-sidebar animated fadeInRightBig">
+
+          <div class="login-container animated fadeInRightBig">
+            <div class="justify-content-center">
+              <%- include('partials/messages')%>
+            </div>
+            <h2 class="text-center text-upper">Signup To The New World</h2>
+            <form class="form-horizontal" action="/register" method="POST">
+              
+              <div class="form-group">
+                <input type="text" value="<%= typeof name != 'undefined' ? name : '' %>" class="form-control" id="inputEmail3" placeholder="Full Name" name="name" required>
+                <i class="fa fa-user"></i>
+              </div>
+              
+              <div class="form-group">
+                <input type="email" class="form-control" value="<%= typeof email != 'undefined' ? email : '' %>" placeholder="Email" name="email" required>
+                <i class="fa fa-user"></i>
+              </div>
+
+              <div class="form-group">
+                <select class="form-control isAdmin" name="isAdmin" required>
+                  <option value="default">Please select...</option>
+                  <option value="1">Administrator</option>
+                  <option value="0">User</option>
+                </select>
+                <i class="fa fa-user"></i>
+                <span class="ml-2 text-danger d-none errorMsg">Field cannot be left blank</span>
+              </div>
+              
+              <div class="form-group help">
+                <input type="password" value="<%= typeof password != 'undefined' ? password : '' %>" class="form-control" placeholder="Password" name="password" required>
+                <i class="fa fa-lock"></i>
+              </div>
+              
+              <div class="form-group help">
+                <input type="password" class="form-control" value="<%= typeof password2 != 'undefined' ? password2 : '' %>" placeholder="Confirm Password" name="password2" required>
+                <i class="fa fa-lock"></i>
+              </div>
+            
+              <div class="form-group">
+                <div class="flexbox align-items-center">
+                  <button type="submit" class="btn theme-bg signUp">Sign Up</button>
+                </div>
+              </div>
+            
+            </form>
+          </div> 
+          
+        </div> <!-- .login-sidebar -->
+      </div> <!-- .row -->
+    </div>
+    
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="assets/plugins/jquery/jquery.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Core plugin JavaScript-->
+    <script src="assets/plugins/jquery-easing/jquery.easing.min.js"></script>
+    
+     <!-- Slick Slider Js -->
+    <script src="assets/plugins/slick-slider/slick.js"></script>
+    
+    <!-- Slim Scroll -->
+    <script src="assets/plugins/slim-scroll/jquery.slimscroll.min.js"></script>
+    
+    <!-- Custom scripts for all pages-->
+    <script src="assets/dist/js/glovia.js"></script>
+    <script src="assets/dist/js/jQuery.style.switcher.js"></script>
+    
+    <script>
+      $('.dropdown-toggle').dropdown()
+    </script>
+    
+  </body>
+
+</html>
+

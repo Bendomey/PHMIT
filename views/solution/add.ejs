@@ -1,0 +1,67 @@
+<% extend('../app')%>
+	<!-- Title & Breadcrumbs-->
+	<div class="row page-titles">
+		<div class="col-md-12 align-self-center">
+			<h4 class="theme-cl">Add Solution</h4>
+			
+		</div>
+	</div>
+	<!-- Title & Breadcrumbs-->
+
+	<div class="row">
+			<div class="col-md-12">
+	  <%- include('../partials/messages')%>
+
+				<div class="card">
+				
+					<div class="card-body">
+						<div class="col-md-12 col-sm-12">
+							<div class="stepwizard">
+							
+							<form action="/solution/add" method="POST">
+								<!-- Step 1 -->
+								<div class="row setup-content" id="step-1">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="form-label">Department</label>
+											<select required class="form-control" id="solution_dept" name="department">
+												<option value="default">Please Select...</option>
+												<% if(departments.length > 0){ %>
+													<% departments.forEach((dept) => { %>
+														<option value="<%= dept._id%>"><%= dept.department_name%></option>
+													<% }) %>
+												<%}%>
+											</select>
+										</div>
+										<div class="form-group">
+											<label class="form-label">Accessory</label>
+											<select required class="form-control" id="outputAccessories" name="accessory" required>
+												<option value="default">Please Select...</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label class="form-label">Problem Description</label>
+											<textarea class="form-control" required name="problem_description"></textarea>
+										</div>
+										<div class="form-group">
+											<label class="form-label">Solution Description</label>
+											<textarea required name="solution_description" class="form-control"></textarea>
+										</div>
+										<button class="btn btn-primary nextBtn btn-lg pull-right" type="submit" >Save</button>
+									</div>
+								</div>
+								<!--Successfully Message END-->
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /row -->
+
+
+	
+				
+
+	
+				

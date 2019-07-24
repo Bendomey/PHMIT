@@ -1,0 +1,167 @@
+<% extend('../app')%>
+	<!-- Title & Breadcrumbs-->
+	<div class="row page-titles">
+		<div class="col-md-12 align-self-center">
+			<h4 class="theme-cl">Manage Users</h4>
+		</div>
+	</div>
+	<!-- Title & Breadcrumbs-->
+	<% if(users.length > 0){%>
+		<div style="display: flex; justify-content:space-between; margin-bottom:1vh">	
+			<div class="col-lg-3 col-md-6 col-sm-6">
+				<input type="text" id="searchUser" onkeyup="search('searchUser','userTable')" id="searchDepartment" placeholder="Search..." class="form-control form-control-sm" >
+	  		</div>
+	  	</div>
+	<%}%>
+	<div class="col-lg-12">
+      <%- include('../partials/messages')%>		
+	</div>
+
+	<div class="card">
+		<div class="card-body">
+			<div class="table-responsive">
+				<% if(users.length > 0){%>
+				<table class="table table-bordered table-striped" id="userTable">
+					<thead>
+						<tr>
+							<th>User</th>						
+							<th>Edit Solution</th>						
+							<th>Delete Solution</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% users.forEach(data => {%>
+						<tr>
+							<td><%- data.name%></td>						
+							<td>
+								<% if(data.role.edit_solution == '1'){ %>
+									<div class="custom-control custom-checkbox">
+									  <input type="checkbox" checked disabled class="custom-control-input">
+									  <label class="custom-control-label"></label>
+									</div>
+								<%}else{%>
+									<div class="custom-control custom-checkbox">
+									  <input type="checkbox" disabled class="custom-control-input">
+									  <label class="custom-control-label"></label>
+									</div>
+								<%}%>
+							</td>
+													
+							<td>
+								<% if(data.role.delete_solution == '1'){ %>
+									<div class="custom-control custom-checkbox">
+									  <input type="checkbox" checked disabled class="custom-control-input">
+									  <label class="custom-control-label"></label>
+									</div>
+								<%}else{%>
+									<div class="custom-control custom-checkbox">
+									  <input type="checkbox" disabled class="custom-control-input">
+									  <label class="custom-control-label"></label>
+									</div>
+								<%}%>
+							</td>
+							<td>
+								<a title="Edit" data-user="<%= JSON.stringify(data)%>" class="editBtnUser" data-toggle="tooltip"><i class="ti-pencil-alt"></i></a>
+								<a title="Delete" data-user="<%- data._id %>" class="text-danger deleteBtnForUser" data-toggle="tooltip"><i class="ti-trash"></i></a>
+							</td>
+						</tr>
+						<%})%>
+					</tbody>
+				</table>
+				<div class="flexbox padd-10">
+					<div class="hint-text">Showing <%- page%> of <%- pages%> pages - <%- count%> total results</div>
+						<ul class="pagination">
+						   <% if(page > 1){%>
+							<li class="page-item">
+							  <a class="page-link" href="/users/assign_roles/page/<%- (page-1)%>" aria-label="Previous">
+								<span aria-hidden="true">«</span>
+								<span class="sr-only">Previous</span>
+							  </a>
+							</li>
+						  <%}%>
+						  <% if(page < pages){%>
+							<li class="page-item">
+							  <a class="page-link" href="/users/assign_roles/page/<%- (parseFloat(page)+1)%>" aria-label="Next">
+								<span aria-hidden="true">»</span>
+								<span class="sr-only">Next</span>
+							  </a>
+							</li>
+						  <%}%>
+						</ul>
+					</div>
+				</div>
+			<%} else{%>
+				<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				  Sorry, no user registered,<b> <a href="/register">click here </a> </b>to register a user
+				</div>
+			<%}%>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<%# edit modal%>
+	<div class="modal modal-box-1 fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+		 <div class="modal-dialog">
+			<div class="modal-content" id="myModalLabel1">
+				 <div class="modal-header theme-bg">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				 </div>
+				<div class="modal-body">
+					<h1>Assign Role</h1>
+					<form action="/users/assign_roles" method="POST" name="sentMessage" id="contactForm">
+						<div class="row">
+							<input type="hidden" name="id" id="userID" required>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="form-label">Edit Solution</label>
+									<select required class="form-control" id="editSolution" name="edit_solution" required>
+										<option value="default">Please Select...</option>
+										<option value="0">Deny</option>
+										<option value="1">Allow</option>
+									</select>
+								</div>	
+								<div class="form-group">
+									<label class="form-label">Delete Solution</label>
+									<select required class="form-control" id="deleteSolution" name="delete_solution" required>
+										<option value="default">Please Select...</option>
+										<option value="0">Deny</option>
+										<option value="1">Allow</option>
+									</select>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+							<div class="col-lg-12 text-center">
+								<div id="success"></div>
+								<button type="submit" class="btn modal-btn">Edit</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<%# delete modal%>
+	<div class="modal modal-box-1 fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+		 <div class="modal-dialog">
+			<div class="modal-content" id="myModalLabel1">
+				 <div class="modal-header theme-bg">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				 </div>
+				<div class="modal-body">
+					<h1>Remove User</h1>
+					<p>Are you sure you want to delete this User?</p>
+					<div class="col-lg-12 text-center">
+						<div id="success"></div>
+						<a class="btn modal-btn btn-danger text-white deleteUserButton">Remove</a>
+						<a href="" class="btn modal-btn " data-dismiss="modal">No</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

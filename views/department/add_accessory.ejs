@@ -1,0 +1,59 @@
+<% extend('../app')%>
+	<!-- Title & Breadcrumbs-->
+	<div class="row page-titles">
+		<div class="col-md-12 align-self-center">
+			<h4 class="theme-cl">Add Accessory</h4>
+			
+		</div>
+	</div>
+	<!-- Title & Breadcrumbs-->
+
+	<div style="display: flex; justify-content:space-between; margin-bottom:1vh">	
+  		<a href="/department/manage/<%= id %>" class="btn btn-primary"><i class="fa fa-arrow-left mr-1"></i>Go Back</a>
+  	</div>
+
+
+	<div class="row">
+		<div class="col-md-12">
+    <%- include('../partials/messages')%>
+
+	<div class="card">
+	
+		<div class="card-body">
+			<div class="col-md-12 col-sm-12">
+				<div class="stepwizard">
+				
+				<form action="" method="POST">
+					<!-- Step 1 -->
+					<div class="row setup-content" id="step-1">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="form-label">Accessory Name</label>
+								<input type="text" required class="form-control" name="name" placeholder=""/>
+							</div>
+							<div class="form-group">
+								<label class="form-label">Generate Or Specify ID</label>
+								<select class="form-control" id="chooseFunction" name="chooseFunction" required>
+									<option value="default">Please Select...</option>
+									<option value="generate">Generate</option>
+									<option value="specify">Specify</option>
+								</select>
+							</div>
+							<div class="form-group" id="accessoryID" style="display: none">
+								<label class="form-label">Accessory ID</label>
+								<input type="text" class="form-control" name="id" placeholder=""/>
+							</div>
+
+							<button class="btn btn-primary nextBtn btn-lg pull-right" type="submit" >Save</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+
+	
+				
