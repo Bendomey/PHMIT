@@ -38,17 +38,38 @@ $(document).ready(function(){
 		});
 	});
 
-	$('.editBtnUser').click(function(){
+	$('.assignRoleBtnUser').click(function(){
 		let data = $(this).data('user');
 		$('#userID').val(data._id);
-		$('#editSolution').append(`<option selected hidden value=${data.role.edit_solution}>${data.role.edit_solution}</option>`);
-		$('#deleteSolution').append(`<option selected hidden value=${data.role.delete_solution}>${data.role.delete_solution}</option>`);
+		$('#editSolution').append(`<option selected hidden value=${data.role.edit_solution}>${data.role.edit_solution == '1' ? 'Allowed' :'Denied'}</option>`);
+		$('#deleteSolution').append(`<option selected hidden value=${data.role.delete_solution}>${data.role.delete_solution == '1' ? 'Allowed' : 'Denied'}</option>`);
 		$(this).attr({
 			"data-toggle":"modal",
-			"data-target":"#editUserModal"
+			"data-target":"#assignRoleUserModal"
 		})
 	});
 
+	$('.editBtnForUser').click(function(){
+		let data = $(this).data('user');
+		alert(data._id)
+		$('#userID1').val(data._id);
+		$('#username').val(data.name);
+		$('#password').val(data.password);
+		$('#confirm_password').val(data.password);
+		$(this).attr({
+			"data-toggle":"modal",
+			"data-target":"#editUserModal"
+		});
+	});
+
+	$('#confirm_password').focusout(function(event){
+		// alert($('#password')))
+		if($(this).val() !== $('#password').val() ){
+			$('.passwordNotEqual').removeClass('d-none');
+		}else{
+			$('.passwordNotEqual').addClass('d-none')
+		}
+	})
 	// $('#searchDepartment').on('keyup',function(){
 	// 	let val = $(this).val().toLowerCase();
 	// 	let table = $('#departmentTable');

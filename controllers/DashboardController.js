@@ -3,6 +3,7 @@ const User = require('../models/user')
 const Department = mongoose.model('Department')
 const Solution = mongoose.model('Solution')
 const Role = mongoose.model('Role');
+const bcrypt = require('bcryptjs');
 
 exports.homepage = async (req, res) => {
 	let solution = await Solution.countDocuments();
@@ -28,12 +29,20 @@ exports.assignRolesPage = async (req, res) => {
 	let skip = (page*limit) - limit;
 
 	let usersPromise =  User
-	.find({isAdmin:'0'})
+	.find({
+		_id:{
+			$ne:req.user._id
+		}
+	})
 	.skip(skip)
 	.limit(limit)
 	.populate('role');
 
-	let countPromise = User.countDocuments({isAdmin:'0'})
+	let countPromise = User.countDocuments({
+		_id:{
+			$ne:req.user.id
+		}
+	})
 
 	const [users, count] = await Promise.all([usersPromise, countPromise]);
 	let pages = Math.ceil(count/limit);
@@ -60,6 +69,45 @@ exports.editUserRoles = async (req, res) => {
 	});
 	req.flash('success_msg', `Congratulations, you have edited this user - ${user.name}`)
 	res.redirect('back');
+};
+
+exports.inputSanctification = async (req, res, next) => {
+	req.checkBody('username', 'User field cannot be empty');
+	req.checkBody('password', 'Password field cannot be empty');
+	req.checkBody('confirm_password','Oops, your passwords do not match').equals(req.body.password);
+	let errors = req.validationErrors();
+	if(errors){
+		req.flash('error_msg',errors.map(err => err.msg));
+		res.redirect('back');
+		return;
+	}
+
+	next();
+}
+
+exports.editAccount = async (req, res) => {
+	// res.send(req.body)
+	User.findOne({_id:req.body.id})
+	.then(user => {
+		user.password = req.body.password;
+		user.updated_at = Date.now();
+		bcrypt.genSalt(10, (err, salt) => {
+			bcrypt.hash(user.password, salt, (err,hash) => {
+				if(err) throw err;
+				user.password = hash;
+				user
+				.save()
+				.then(user => {
+	                req.flash(
+	                  'success_msg',
+	                  `${user.name}'s profile has been reset successfully`
+	                );
+	                return res.redirect('back');
+	            })
+	              .catch(err => console.log(err));
+			})
+		})
+	})
 };
 
 exports.removeUser = async (req, res) => {

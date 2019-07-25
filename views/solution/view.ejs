@@ -8,7 +8,7 @@
 	<!-- Title & Breadcrumbs-->
 
 	<% if(solutions.length > 0){%>
-		<div style="display: flex; justify-content:space-between; margin-bottom:1vh">	
+		<div style="display: flex; justify-content:flex-end; margin-bottom:1vh">	
 			<div class="col-lg-3 col-md-6 col-sm-6">
 				<input type="text" id="searchSolution" onkeyup="search('searchSolution','solutionTable')" id="searchDepartment" placeholder="Search accessory id..." class="form-control form-control-sm" >
 	  		</div>
@@ -25,9 +25,9 @@
 			<table class="table table-striped table-hover" id="solutionTable">
 				<thead>
 					<tr>
-						<th>User</th>						
+						<th>Accessory</th>						
 						<th>Department</th>						
-						<th>Accessory</th>
+						<th>User</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -40,10 +40,10 @@
 							  	<td><%= solu.users.name || 'Unknown User'%></td>
 								<td>
 									<a class="solutionViewBtn" data-solution="<%= JSON.stringify(solu)%>" title="View" data-toggle="tooltip"><i class="ti-eye"></i></a>
-									<% if(user.isAdmin == '1' || user_roles.role.edit_solution == '1'){%>
+									<% if(user.isAdmin == '1' || user_roles.role.edit_solution == '1' || solu.user == user.id){%>
 										<a  class="solutionEditBtn" data-solution="<%= JSON.stringify(solu)%>" title="Edit" data-toggle="tooltip"><i class="ti-pencil-alt"></i></a>
 									<% } %>
-									<% if(user.isAdmin == '1' || user_roles.role.delete_solution == '1'){%>
+									<% if(user.isAdmin == '1' || user_roles.role.delete_solution == '1' || solu.user == user.id){%>
 										<a class="delete solutionDeleteBtn" data-solution="<%= solu._id%>" title="Delete" data-toggle="tooltip"><i class="ti-trash"></i></a>
 									<% } %>
 
@@ -77,7 +77,7 @@
 		</div>
 		<%} else{%>
 			<div class="alert alert-warning alert-dismissible fade show" role="alert">
-			  Sorry, no department available
+			  Sorry, no solutions available
 			</div>
 		<%}%>
 	</div>

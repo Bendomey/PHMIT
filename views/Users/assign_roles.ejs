@@ -7,7 +7,7 @@
 	</div>
 	<!-- Title & Breadcrumbs-->
 	<% if(users.length > 0){%>
-		<div style="display: flex; justify-content:space-between; margin-bottom:1vh">	
+		<div style="display: flex; justify-content:flex-end; margin-bottom:1vh">	
 			<div class="col-lg-3 col-md-6 col-sm-6">
 				<input type="text" id="searchUser" onkeyup="search('searchUser','userTable')" id="searchDepartment" placeholder="Search..." class="form-control form-control-sm" >
 	  		</div>
@@ -62,8 +62,9 @@
 								<%}%>
 							</td>
 							<td>
-								<a title="Edit" data-user="<%= JSON.stringify(data)%>" class="editBtnUser" data-toggle="tooltip"><i class="ti-pencil-alt"></i></a>
+								<a title="Assign Role" data-user="<%= JSON.stringify(data)%>" class="assignRoleBtnUser" data-toggle="tooltip"><i class="ti-user"></i></a>
 								<a title="Delete" data-user="<%- data._id %>" class="text-danger deleteBtnForUser" data-toggle="tooltip"><i class="ti-trash"></i></a>
+								<a title="Edit" data-user="<%= JSON.stringify(data) %>" class="text-info editBtnForUser" data-toggle="tooltip"><i class="ti-pencil-alt"></i></a>
 							</td>
 						</tr>
 						<%})%>
@@ -103,8 +104,8 @@
 
 
 
-	<%# edit modal%>
-	<div class="modal modal-box-1 fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+	<%# assign role modal%>
+	<div class="modal modal-box-1 fade" id="assignRoleUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
 		 <div class="modal-dialog">
 			<div class="modal-content" id="myModalLabel1">
 				 <div class="modal-header theme-bg">
@@ -112,7 +113,7 @@
 				 </div>
 				<div class="modal-body">
 					<h1>Assign Role</h1>
-					<form action="/users/assign_roles" method="POST" name="sentMessage" id="contactForm">
+					<form action="/users/assign_roles" method="POST" >
 						<div class="row">
 							<input type="hidden" name="id" id="userID" required>
 							<div class="col-md-12">
@@ -145,6 +146,44 @@
 		</div>
 	</div>
 
+	<%# edit modal%>
+	<div class="modal modal-box-1 fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+		 <div class="modal-dialog">
+			<div class="modal-content" id="myModalLabel1">
+				 <div class="modal-header theme-bg">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				 </div>
+				<div class="modal-body">
+					<h1>Edit User</h1>
+					<form action="/account/reset_profile" method="POST" name="sentMessage" id="contactForm">
+						<div class="row">
+							<input type="hidden" name="id" id="userID1" required>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="form-label">User Name</label>
+									<input type="text" class="form-control form-control-sm" id="username" name="name" required>
+								</div>	
+								<div class="form-group">
+									<label class="form-label">Password</label>
+									<input type="password" class="form-control" id="password" name="password" required>
+								</div>
+								<div class="form-group">
+									<label class="form-label">Confirm Password</label>
+									<input type="password" class="form-control" name="confirm_password" id="confirm_password" required>
+									<span class="pl-3 text text-sm text-danger d-none passwordNotEqual">Passwords not equal</span>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+							<div class="col-lg-12 text-center">
+								<div id="success"></div>
+								<button type="submit" class="btn modal-btn">Update</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<%# delete modal%>
 	<div class="modal modal-box-1 fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
