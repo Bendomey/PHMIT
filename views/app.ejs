@@ -249,6 +249,64 @@
 
 			<script type="text/javascript">
 				$(document).ready(function() {
+					let table = $('.requestTable').DataTable({
+						processing:true,
+						ajax:{
+							"type":"get",
+							"url":"/requests/get_data",
+							dataSrc:(data)=>{
+								let json = [];
+								for(i=0;i < data.length;i++){
+									json.push({
+										'name':data[i].name,
+										'department':data[i].department_name,
+										'problem_description':data[i].problem_description,
+										'status':data[i].status == '0' ? `<div class="label cl-warning bg-warning-light">Pending</div>` : `<div class="label cl-success bg-success-light">Attended</div>`,
+										'created_at':moment(data[i].updated_at).fromNow()
+									})
+								}
+								return json
+							}
+						},
+						columns:[
+							{data:'name'},
+							{data:'department'},
+							{data:'problem_description'},
+							{data:'status'},
+							{data:'created_at'}
+						]
+					})
+					function collectData(){
+						table.destroy()
+						$('.requestTable').DataTable({
+						processing:true,
+						ajax:{
+							"type":"get",
+							"url":"/requests/get_data",
+							dataSrc:(data)=>{
+								let json = [];
+								for(i=0;i < data.length;i++){
+									json.push({
+										'name':data[i].name,
+										'department':data[i].department_name,
+										'problem_description':data[i].problem_description,
+										'status':data[i].status == '0' ? `<div class="label cl-warning bg-warning-light">Pending</div>` : `<div class="label cl-success bg-success-light">Attended</div>`,
+										'created_at':moment(data[i].updated_at).fromNow()
+									})
+								}
+								return json
+							}
+						},
+						columns:[
+							{data:'name'},
+							{data:'department'},
+							{data:'problem_description'},
+							{data:'status'},
+							{data:'created_at'}
+						]
+					})
+					}
+
 					$('#styleOptions').styleSwitcher();
 					// Pusher.logToConsole = true;
 				      const pusher = new Pusher('80f95a2c2210f53093ae',{
@@ -282,6 +340,7 @@
 				                            '<a href="{3}" data-notify="url"></a>' +
 				                        '</div>' 
 				        })
+				        collectData()
 				      });
 				});
 			</script>
