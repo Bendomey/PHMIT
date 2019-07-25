@@ -12,8 +12,15 @@ const authController = require('../controllers/authController');
 const solutionController = require('../controllers/SolutionController');
 const departmentController = require('../controllers/DepartmentController');
 const accessoriesController = require('../controllers/AccessoriesController');
+const requestController = require('../controllers/RequestController');
 
-router.get('/', ensureAuthenticated, catchErrors(dashboardController.homepage));
+//for client
+router.get('/', requestController.index);
+router.post('/send_request', requestController.sanctifyInputs, catchErrors(requestController.saveRequest));
+router.post('/pusher/auth', catchErrors(requestController.pusher_auth));
+router.get('/requests/get_data', catchErrors(requestController.get_data));
+
+router.get('/dashboard', ensureAuthenticated, catchErrors(dashboardController.homepage));
 
 router.get('/sorry_page', ensureAuthenticated, dashboardController.sorryPage);
 

@@ -124,4 +124,40 @@ $(document).ready(function(){
 			"data-target":"#deleteSolutionModal"
 		})
 	})
+
+	// $.ajax({
+	// 	method:'get',
+	// 	url:'/requests/get_data',
+	// 	success:(data)=>{
+			
+	// 	},
+	// 	error:(err => alert(err))
+	// })
+
+	//datatable
+	$('.requestTable').DataTable({
+		processing:true,
+		ajax:{
+			"type":"get",
+			"url":"/requests/get_data",
+			dataSrc:(data)=>{
+				let json = [];
+				for(i=0;i < data.length;i++){
+					json.push({
+						'name':data[i].name,
+						'department':data[i].department_name,
+						'status':data[i].status == '0' ? `<div class="label cl-warning bg-warning-light">Pending</div>` : `<div class="label cl-success bg-success-light">Attended</div>`,
+						'created_at':moment(data[i].updated_at).fromNow()
+					})
+				}
+				return json
+			}
+		},
+		columns:[
+			{data:'name'},
+			{data:'department'},
+			{data:'status'},
+			{data:'created_at'}
+		]
+	})
 });

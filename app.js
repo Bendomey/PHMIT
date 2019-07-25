@@ -33,6 +33,7 @@ require('./models/Department');
 require('./models/Solution');
 require('./models/Accessories');
 require('./models/Roles');
+require('./models/Request');
 
 // EJS
 // app.use(expressLayouts);

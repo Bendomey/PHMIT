@@ -30,6 +30,8 @@
 		<link href="/assets/dist/css/glovia.css" rel="stylesheet">
 		<link href="/assets/dist/css/glovia-responsive.css" rel="stylesheet">
 
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+
 		<!-- Custom styles for Color -->
 		<link rel="stylesheet" href="/assets/dist/css/skins/default.css">
 </head>
@@ -228,8 +230,14 @@
 			<!-- Custom scripts for all pages -->
 			<script src="/assets/dist/js/glovia.js"></script>
 			<script src="/assets/dist/js/jQuery.style.switcher.js"></script>
+    		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    		<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
 			<script src="/javascript/dashboard.js"></script>
 			<script src="/javascript/profile.js"></script>
+			<script src="/javascript/bootstrap-notify.js"></script> <!-- Bootstrap Notify Plugin Js -->
+			<script src="/javascript/notifications.js"></script> <!-- Custom Js -->
+    		<script src="/javascript/pusher.min.js"></script>
 			<script>
 				function openRightMenu() {
 					document.getElementById("rightMenu").style.display = "block";
@@ -242,6 +250,39 @@
 			<script type="text/javascript">
 				$(document).ready(function() {
 					$('#styleOptions').styleSwitcher();
+					// Pusher.logToConsole = true;
+				      const pusher = new Pusher('80f95a2c2210f53093ae',{
+				        authEndpoint:'/pusher/auth',
+				        cluster:'eu',
+				        forceTLS:true
+				      });
+				      const channel = pusher.subscribe("presence-notification");
+				      channel.bind('new_request',function(data){
+				        $.notify({
+				            icon:'fa fa-exclamation-triangle',
+				            title:'New Request',
+				            message:data.message,
+				            url:'/dashboard/request/'
+				        },{
+				            type:'primary',
+				            allow_dismiss:true,
+				            placement:{
+				                from:'top',
+				                align:'right'
+				            },
+				            animate: {
+				                enter: 'animated fadeInDown',
+				                exit: 'animated fadeOutUp'
+				            },
+				            template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+				                            '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+				                            '<span data-notify="icon"></span> ' +
+				                            '<span data-notify="title">{1}</span> <br>' +
+				                            '<span data-notify="message">{2}</span> <br>' +
+				                            '<a href="{3}" data-notify="url"></a>' +
+				                        '</div>' 
+				        })
+				      });
 				});
 			</script>
 			
