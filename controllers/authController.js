@@ -122,7 +122,7 @@ exports.rememberMe = (req, res, next) => {
 exports.loginRedirect = (req, res) => {
 	let path = req.session.redirect_to;
 	delete req.session.redirect_to;
-	res.redirect(path || '/');
+	res.redirect(path || '/dashboard');
 }
 
 exports.logout = (req, res) => {

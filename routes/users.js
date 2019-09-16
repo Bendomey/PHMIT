@@ -14,7 +14,7 @@ const dashboardController = require('../controllers/DashboardController');
  * Routes here
 */
 router.get('/login', forwardAuthenticated, authController.loginPage);
-router.get('/register', ensureAuthenticated, ensureAdministrator, authController.registerPage);
+router.get('/register', authController.registerPage);
 router.post('/register', authController.validateRegister, authController.register);
 router.post('/login',authController.login, authController.rememberMe, authController.loginRedirect);
 router.get('/logout', authController.logout);
